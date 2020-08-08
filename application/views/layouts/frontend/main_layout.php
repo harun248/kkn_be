@@ -54,9 +54,9 @@
                                 <a class="nav-link  bolded" href="<?= base_url("SK") ?>">Surat Keterangan</a>
                             </li>
 
-                            <li class="nav-item">
+                           <!--  <li class="nav-item">
                                 <a class="nav-link  bolded" href="<?= base_url("SR") ?>">Surat Rekomendasi</a>
-                            </li>
+                            </li> -->
 
                             <?php if ($this->session->userdata('email')) : ?>
 
