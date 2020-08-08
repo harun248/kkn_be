@@ -10,6 +10,7 @@
             <div class="form-group">
                 <label for="judul">Jenis Panduan</label>
                 <select class="form-control form-control-user " id="fm_jenis" name="jenis" required="true">
+                
                     <option value="Surat-Keterangan-Ahli-Waris">Surat Keterangan Ahli Waris</option>
                     <option value="Surat-Keterangan-Domisili">Surat Keterangan Domisili</option>
                     <option value="Surat-Keterangan-Kematian">Surat Keterangan Kematian</option>
