@@ -15,14 +15,21 @@ class Panduan extends CI_Controller
     public function index()
     {
         $data['page'] = 'admin/panduan/index';
-        $data['dokumen'] = $this->db->get('panduan')->result_array();
-
+        $data['active'] = 'panduan';
+        $data['dokumen'] = $this->db->order_by('judul asc, jenis asc')->get('panduan')->result_array();
+        $data['user'] = $this->db->get_where('admin', ['emails' => $this->session->userdata("emails")])->row_array();
+        $data['desa'] = $this->db->get("profil_desa")->result_array();
+        
+       
         $this->load->view('layouts/backend/main_layout', $data);
     }
 
     public function add()
     {
         $data['page'] = 'admin/panduan/add';
+        $data['active'] = 'panduan';
+        $data['user'] = $this->db->get_where('admin', ['emails' => $this->session->userdata("emails")])->row_array();
+        $data['jenis'] = $this->db->order_by('nama' , 'ASC')->get("jenis")->result_array();
         $this->load->view('layouts/backend/main_layout', $data);
     }
 
@@ -50,6 +57,8 @@ class Panduan extends CI_Controller
         $data = array(
             "judul" => $this->input->post("judul"),
             "jenis" => $this->input->post("jenis"),
+             "persyaratan" => $this->input->post("persyaratan"),
+             "mekanisme" => $this->input->post("mekanisme"),
             "path" => $path . "/" . $this->upload->data()["file_name"]
         );
 
@@ -66,8 +75,12 @@ class Panduan extends CI_Controller
     public function edit($id)
     {
         $data['page'] = 'admin/panduan/edit';
+        $data['active'] = 'panduan';
+        
         $data['file'] = $this->db->get_where('panduan', ["panduan_id" => $id])->row_array();
-
+        $data['user'] = $this->db->get_where('admin', ['emails' => $this->session->userdata("emails")])->row_array();
+        $data['jenis'] = $this->db->order_by('nama' , 'ASC')->get("jenis")->result_array();
+        $data['desa'] = $this->db->get("profil_desa")->result_array();
         $this->load->view('layouts/backend/main_layout', $data);
     }
 
@@ -96,6 +109,8 @@ class Panduan extends CI_Controller
             $data = [
                 "judul" => $this->input->post("judul"),
                 "jenis" => $this->input->post("jenis"),
+                "persyaratan" => $this->input->post("persyaratan"),
+                "mekanisme" => $this->input->post("mekanisme"),
                 "path" => $oldFile['path']
             ];
             $update = $this->db->update('panduan', $data, $where);
@@ -103,6 +118,8 @@ class Panduan extends CI_Controller
             $data = [
                 "judul" => $this->input->post("judul"),
                 "jenis" => $this->input->post("jenis"),
+                "persyaratan" => $this->input->post("persyaratan"),
+                "mekanisme" => $this->input->post("mekanisme"),
                 "path" => $path . "/" . $this->upload->data()["file_name"]
             ];
             $update = $this->db->update('panduan', $data, $where);
